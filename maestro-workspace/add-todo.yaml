@@ -1,0 +1,21 @@
+appId: com.anonymous.tsi34aavaliacao02
+---
+- launchApp:
+    clearState: true
+- assertNotVisible: Delete task
+
+- repeat:
+    times: 3
+    commands:
+      - tapOn: Add a new task...
+      - inputRandomText:
+          length: 10
+      - tapOn: Add
+- assertVisible: Delete task
+- repeat:
+    times: 3
+    commands:
+      - tapOn: Delete task
+
+
+- assertNotVisible: Delete task

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     paddingVertical: 20,
-    backgroundColor: '#007AFF',
+    backgroundColor: 'rgba(0,0,0,0.44)',
     color: '#fff',
   },
   tabContainer: {
@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   activeTab: {
-    color: '#007AFF',
+    color: 'rgba(0,122,255,0.25)',
     fontWeight: 'bold',
     borderBottomWidth: 2,
-    borderBottomColor: '#007AFF',
+    borderBottomColor: 'rgba(0,122,255,0.25)',
   },
   content: {
     flex: 1,

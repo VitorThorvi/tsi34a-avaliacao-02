@@ -1,0 +1,10 @@
+appId: com.anonymous.tsi34aavaliacao02
+---
+- repeat:
+    times: 3
+    commands:
+      - tapOn: Add a new task...
+      - inputText: Teste1
+      - tapOn: Add
+      - assertVisible: Teste1
+- runFlow: remove-task.yaml

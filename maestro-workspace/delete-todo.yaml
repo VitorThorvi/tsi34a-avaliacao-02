@@ -1,0 +1,4 @@
+appId: com.anonymous.tsi34aavaliacao02
+---
+- launchApp:
+    clearState: true

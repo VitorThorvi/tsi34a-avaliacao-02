@@ -1,0 +1,10 @@
+appId: com.anonymous.tsi34aavaliacao02
+---
+- launchApp:
+    clearState: true
+- runFlow: no-tasks-info.yaml
+- runFlow: create-task.yaml
+- runFlow: create-random-test.yaml
+- runFlow: complete-todo.yaml
+- runFlow: assert-not-visible.yaml
+- runFlow: remove-task.yaml
