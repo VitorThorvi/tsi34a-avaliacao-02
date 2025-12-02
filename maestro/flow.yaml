@@ -1,0 +1,13 @@
+# flow.yaml
+
+appId: com.anonymous.tsi34aavaliacao02
+---
+- launchApp
+- repeat:
+    times: 15
+    commands:
+      - tapOn: "Add a new task..."
+      - inputRandomEmail
+      - tapOn: "Add"
+
+

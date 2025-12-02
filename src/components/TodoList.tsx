@@ -2,39 +2,35 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   FlatList,
   StyleSheet,
 } from 'react-native';
+import TodoItem from './TodoItem';
+import TodoInput from './TodoInput';
 
-export interface Todo {
+export type Todo = {
   id: string;
   text: string;
   completed: boolean;
 }
 
-interface TodoListProps {
+type TodoListProps = {
   initialTodos?: Todo[];
   onTodosChange?: (todos: Todo[]) => void;
 }
 
 export default function TodoList({ initialTodos = [], onTodosChange }: TodoListProps) {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
-  const [inputText, setInputText] = useState('');
 
-  const addTodo = () => {
-    if (inputText.trim() === '') return;
-    
+  const addTodo = (text: string) => {
     const newTodo: Todo = {
       id: Date.now().toString(),
-      text: inputText.trim(),
+      text,
       completed: false,
     };
     
     const newTodos = [...todos, newTodo];
     setTodos(newTodos);
-    setInputText('');
     onTodosChange?.(newTodos);
   };
 
@@ -56,28 +52,11 @@ export default function TodoList({ initialTodos = [], onTodosChange }: TodoListP
   const totalCount = todos.length;
 
   const renderTodoItem = ({ item }: { item: Todo }) => (
-    <View style={styles.todoItem} testID={`todo-item-${item.id}`}>
-      <TouchableOpacity
-        style={styles.checkbox}
-        onPress={() => toggleTodo(item.id)}
-        testID={`toggle-${item.id}`}
-      >
-        <Text style={styles.checkboxText}>{item.completed ? '✓' : '○'}</Text>
-      </TouchableOpacity>
-      <Text
-        style={[styles.todoText, item.completed && styles.todoTextCompleted]}
-        testID={`todo-text-${item.id}`}
-      >
-        {item.text}
-      </Text>
-      <TouchableOpacity
-        style={styles.deleteButton}
-        onPress={() => removeTodo(item.id)}
-        testID={`delete-${item.id}`}
-      >
-        <Text style={styles.deleteButtonText}>×</Text>
-      </TouchableOpacity>
-    </View>
+    <TodoItem
+      item={item}
+      onToggle={toggleTodo}
+      onDelete={removeTodo}
+    />
   );
 
   return (
@@ -86,22 +65,7 @@ export default function TodoList({ initialTodos = [], onTodosChange }: TodoListP
       <Text style={styles.counter} testID="todo-counter">
         {completedCount}/{totalCount} completed
       </Text>
-      <View style={styles.inputRow}>
-        <TextInput
-          style={styles.input}
-          value={inputText}
-          onChangeText={setInputText}
-          placeholder="Add a new task..."
-          testID="todo-input"
-        />
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={addTodo}
-          testID="add-button"
-        >
-          <Text style={styles.addButtonText}>Add</Text>
-        </TouchableOpacity>
-      </View>
+      <TodoInput onAddTodo={addTodo} />
       {todos.length === 0 ? (
         <Text style={styles.emptyText} testID="empty-message">
           No tasks yet. Add one above!
